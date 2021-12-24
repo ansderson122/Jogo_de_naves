@@ -8,6 +8,9 @@ function start(){
     $("#fundoGame").append("<div id='amigo' class='animal3'></div>")
 
     var jogo = {}
+    var velocidade = 5 
+    var possicaoY = parseInt(Math.random() * 334)
+
     var tecla = {
         w:87,
         s:83,
@@ -29,6 +32,8 @@ function start(){
     function loop(){
         movefundo()
         movejogador()
+        moveinimigo1()
+        moveinimigo2()
     }
 
     function movefundo(){
@@ -54,6 +59,27 @@ function start(){
         }
         if(jogo.pressionou[tecla.d]){
             
+        }
+    }
+
+    function moveinimigo1(){
+        possicaoX = parseInt($("#inimigo1").css("left"))
+        $("#inimigo1").css("left",possicaoX-velocidade)
+        $("#inimigo1").css("top",possicaoY)
+
+        if(possicaoX<=0){
+            possicaoY = parseInt(Math.random() * 334)
+            $("#inimigo1").css("left",634)
+            $("#inimigo1").css("top",possicaoY)
+        }
+    }
+
+    function moveinimigo2(){
+        possicaoX = parseInt($("#inimigo2").css("left"))
+        $("#inimigo2").css("left",possicaoX-3)
+
+        if(possicaoX<=0){
+            $("#inimigo2").css("left",775)
         }
 
     }
