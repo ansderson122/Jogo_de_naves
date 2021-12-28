@@ -289,7 +289,7 @@ function start(){
 
     function explosao2(amigoX,amigoY) {
         pontos+=100
-        
+
         $("#fundoGame").append("<div id='explosao3' class='animal4'></div>")
         $("#explosao3").css("top",amigoY)
         $("#explosao3").css("left",amigoX)
@@ -318,6 +318,7 @@ function start(){
                 break
             case 0:
                 $("#energia").css("background-image","url(../img/energia0.png)")
+                gameover()
                 break
             default:
                 break
@@ -325,9 +326,30 @@ function start(){
         }
     }
 
+    function gameover(){
+        continuaJogo = false
+        musica.pause()
+        somGameover.play()
+
+        window.clearInterval(jogo.timer)
+        jogo.timer = null
+
+        $("#jogador").remove()
+        $("#inimigo1").remove()
+        $("#inimigo2").remove()
+        $("#amigo").remove()
+
+        $("#fundoGame").append("<div id='fim'></div>")
+        $("#fim").html("<h1> Game Over </h1><p>Sua pontuação foi:"+ pontos+"</p>" + "<div id='reinicia' onClick=reiniciaJogo()><h3>Jogar Novamente</h3></div>")
+
+    }
+}
 
 
-
+function reiniciaJogo(){
+    somGameover.pause()
+    $("#fim").remove()
+    start()
 }
 
 
