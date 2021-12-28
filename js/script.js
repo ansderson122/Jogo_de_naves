@@ -146,6 +146,37 @@ function start(){
             reposionaInimigo2()
         }
 
+        if (colisao3.length > 0){
+            let inimigo1X = parseInt($("#inimigo1").css("left"))
+            let inimigo1Y = parseInt($("#inimigo1").css("top"))
+            explosao1(inimigo1X,inimigo1Y)
+            $("#disparo").css("left",950)
+            $("#inimigo1").remove()
+            
+            let tempoInimigo1 = setInterval(function(){
+                window.clearInterval(tempoInimigo1)
+                $("#fundoGame").append("<div id='inimigo1'  class='animal2'></div>")
+                possicaoY = parseInt(Math.random() * 334)
+                $("#inimigo1").css("left", 634)
+                $("#inimigo1").css("top",possicaoY)
+
+            },1000)
+            
+        }
+
+        if (colisao4.length > 0){
+            inimigo2X = parseInt($("#inimigo2").css("left"))
+            inimigo2Y = parseInt($("#inimigo2").css("top"))
+            explosao1(inimigo2X,inimigo2Y)
+
+            $("#disparo").css("left",950)
+            $("#inimigo2").remove()
+
+            reposionaInimigo2()
+        }
+
+        
+
     }
 
     function explosao1(inimigo1X,inimigo1Y){
