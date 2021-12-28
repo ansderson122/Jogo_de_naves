@@ -36,6 +36,7 @@ function start(){
         movejogador()
         moveinimigo1()
         moveinimigo2()
+        moveAmigo()
         colisao()
     }
 
@@ -116,6 +117,14 @@ function start(){
         }
     }
 
+    function moveAmigo(){
+        possicaoX = parseInt($("#amigo").css("left"))
+        $("#amigo").css("left",possicaoX + 1)
+        if(possicaoX > 906){
+            $("#amigo").css("left",0)
+        }
+    }
+
     function colisao(){
         let colisao1 = ($("#jogador").collision($("#inimigo1")))
         let colisao2 = ($("#jogador").collision($("#inimigo2")))
@@ -175,6 +184,21 @@ function start(){
             reposionaInimigo2()
         }
 
+        if (colisao5.length > 0){
+            reposionaAmigo()
+            $("#amigo").remove()
+        }
+
+        if (colisao6.length > 0){
+            amigoY = parseInt($("#amigo").css("top"))
+            amigoX = parseInt($("#amigo").css("left"))
+            explosao2(amigoX,amigoY)
+            $("#amigo").remove()
+            reposionaAmigo()
+
+
+        }
+
         
 
     }
@@ -209,6 +233,31 @@ function start(){
             if(continuaJogo){
                 $("#fundoGame").append("<div id='inimigo2'></div>")
             }
+        }
+    }
+
+    function reposionaAmigo(){
+        let tempoAmigo = setInterval(reposicionaAmigo,6000)
+
+        function reposicionaAmigo(){
+            window.clearInterval(tempoAmigo)
+            tempoAmigo = null
+
+            if (continuaJogo){
+                $("#fundoGame").append("<div id='amigo' class='animal3'></div>")
+            }
+        }
+    }
+
+    function explosao2(amigoX,amigoY) {
+        $("#fundoGame").append("<div id='explosao3' class='animal4'></div>")
+        $("#explosao3").css("top",amigoY)
+        $("#explosao3").css("left",amigoX)
+        let tempoExplosao3 = setInterval(resetaExplosao3,1000)
+        function resetaExplosao3(){
+            $("#explosao3").remove()
+            window.clearInterval(tempoExplosao3)
+            tempoExplosao3 = null
         }
     }
 
