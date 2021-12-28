@@ -6,12 +6,20 @@ function start(){
     $("#fundoGame").append("<div id='inimigo1' class='animal2'></div>")
     $("#fundoGame").append("<div id='inimigo2'></div>")
     $("#fundoGame").append("<div id='amigo' class='animal3'></div>")
+    $("#fundoGame").append("<div id='placar'></div>")
+    $("#fundoGame").append("<div id='energia'></div>")
 
     var jogo = {}
     var velocidade = 5 
     var possicaoY = parseInt(Math.random() * 334)
     var podeAtirar = true
     var continuaJogo = true
+
+    var perdidos = 0
+    var salvos = 0
+    var pontos = 0
+    var energiaAtual = 3
+
 
     var tecla = {
         w:87,
@@ -38,6 +46,8 @@ function start(){
         moveinimigo2()
         moveAmigo()
         colisao()
+        placar()
+        energia()
     }
 
     function movefundo(){
@@ -135,6 +145,7 @@ function start(){
 
         
         if (colisao1.length > 0){
+            energiaAtual--
             let inimigo1X = parseInt($("#inimigo1").css("left"))
             let inimigo1Y = parseInt($("#inimigo1").css("top"))
             explosao1(inimigo1X,inimigo1Y)
@@ -146,6 +157,7 @@ function start(){
         }
 
         if (colisao2.length > 0){
+            energiaAtual--
             inimigo2X = parseInt($("#inimigo2").css("left"))
             inimigo2Y = parseInt($("#inimigo2").css("top"))
             explosao1(inimigo2X,inimigo2Y)
@@ -156,6 +168,8 @@ function start(){
         }
 
         if (colisao3.length > 0){
+            pontos+=100
+
             let inimigo1X = parseInt($("#inimigo1").css("left"))
             let inimigo1Y = parseInt($("#inimigo1").css("top"))
             explosao1(inimigo1X,inimigo1Y)
@@ -174,6 +188,8 @@ function start(){
         }
 
         if (colisao4.length > 0){
+            pontos+=50
+
             inimigo2X = parseInt($("#inimigo2").css("left"))
             inimigo2Y = parseInt($("#inimigo2").css("top"))
             explosao1(inimigo2X,inimigo2Y)
@@ -185,11 +201,14 @@ function start(){
         }
 
         if (colisao5.length > 0){
+            salvos++
             reposionaAmigo()
             $("#amigo").remove()
         }
 
         if (colisao6.length > 0){
+            perdidos++
+            
             amigoY = parseInt($("#amigo").css("top"))
             amigoX = parseInt($("#amigo").css("left"))
             explosao2(amigoX,amigoY)
@@ -208,7 +227,7 @@ function start(){
         $("#fundoGame").append("<div id='explosao1'></div>")
         $("#explosao1").css("background-image","url(../img/explosao.png)")
 
-        console.log(inimigo1Y)
+        
 
         $("#explosao1").css("top", inimigo1Y)
         $("#explosao1").css("left",inimigo1X)
@@ -250,6 +269,7 @@ function start(){
     }
 
     function explosao2(amigoX,amigoY) {
+        pontos+=100
         $("#fundoGame").append("<div id='explosao3' class='animal4'></div>")
         $("#explosao3").css("top",amigoY)
         $("#explosao3").css("left",amigoX)
@@ -258,6 +278,30 @@ function start(){
             $("#explosao3").remove()
             window.clearInterval(tempoExplosao3)
             tempoExplosao3 = null
+        }
+    }
+
+    function placar(){
+        $("#placar").html("<h2>Pontos:"+ pontos + "   Salvos:"+ salvos +"   Perdidos:"+ perdidos +"</h2>")
+    }
+
+    function energia(){
+        switch (energiaAtual){
+            case 3:
+                $("#energia").css("background-image","url(../img/energia3.png)")
+                break
+            case 2:
+                $("#energia").css("background-image","url(../img/energia2.png)")
+                break
+            case 1:
+                $("#energia").css("background-image","url(../img/energia1.png)")
+                break
+            case 0:
+                $("#energia").css("background-image","url(../img/energia0.png)")
+                break
+            default:
+                break
+
         }
     }
 
