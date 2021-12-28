@@ -20,6 +20,19 @@ function start(){
     var pontos = 0
     var energiaAtual = 3
 
+    var somDisparo = document.getElementById("somDisparo")
+    var somExplosao = document.getElementById("somExplosao")
+    var musica = document.getElementById("musica")
+    var somGameover = document.getElementById("somGameover")
+    var somPerdido = document.getElementById("somPerdido")
+    var somResgate = document.getElementById("somResgate")
+    
+    musica.addEventListener("ended", function(){
+        musica.currentTime = 0
+        musica.play()
+    },false)
+    musica.play()
+
 
     var tecla = {
         w:87,
@@ -101,6 +114,7 @@ function start(){
 
     function disparo(){
         if (podeAtirar === true){
+            somDisparo.play()
             podeAtirar = false
 
             let topo = parseInt($("#jogador").css("top"))
@@ -169,6 +183,7 @@ function start(){
 
         if (colisao3.length > 0){
             pontos+=100
+            velocidade+=0.3
 
             let inimigo1X = parseInt($("#inimigo1").css("left"))
             let inimigo1Y = parseInt($("#inimigo1").css("top"))
@@ -202,12 +217,15 @@ function start(){
 
         if (colisao5.length > 0){
             salvos++
+            somResgate.play()
+
             reposionaAmigo()
             $("#amigo").remove()
         }
 
         if (colisao6.length > 0){
             perdidos++
+            somPerdido.play()
             
             amigoY = parseInt($("#amigo").css("top"))
             amigoX = parseInt($("#amigo").css("left"))
@@ -223,6 +241,7 @@ function start(){
     }
 
     function explosao1(inimigo1X,inimigo1Y){
+        somExplosao.play()
       
         $("#fundoGame").append("<div id='explosao1'></div>")
         $("#explosao1").css("background-image","url(../img/explosao.png)")
@@ -270,6 +289,7 @@ function start(){
 
     function explosao2(amigoX,amigoY) {
         pontos+=100
+        
         $("#fundoGame").append("<div id='explosao3' class='animal4'></div>")
         $("#explosao3").css("top",amigoY)
         $("#explosao3").css("left",amigoX)
