@@ -1,6 +1,6 @@
 # Descrição 
 
-Um jogo com helicóptero onde o objetivo é faz a maior pontuação. Foi feito a partir de um bootcamp da digital innovation one.
+Um jogo com helicóptero, onde o objetivo é fazer a maior pontuação. Foi feito a partir de um bootcamp da digital innovation one.
 
 ## Tecnologias ultilizadas
 
